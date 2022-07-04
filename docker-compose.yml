@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  moodle:
+    image: bitnami/moodle:4
+    depends_on:
+      - mariadb
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+      MOODLE_DATABASE_USER:     bn_moodle
+      MOODLE_DATABASE_PASSWORD: bitnami
+      MOODLE_DATABASE_NAME:     bitnami_moodle
+      MOODLE_DATABASE_HOST:     moodle-db
+    volumes:
+      - moodle_data:/bitnami/moodle
+      - ./assignfeedback_plinq:/bitnami/moodle/mod/assign/feedback/plinq
+    networks:
+      moodle-network:
+        aliases:
+          - moodle
+  mariadb:
+    image: bitnami/mariadb:latest
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+      MARIADB_USER:     bn_moodle
+      MARIADB_PASSWORD: bitnami
+      MARIADB_DATABASE: bitnami_moodle
+    volumes:
+      - mariadb_data:/bitnami/mariadb
+    networks:
+      moodle-network:
+        aliases:
+          - moodle-db
+
+networks:
+  moodle-network:
+    driver: bridge
+
+volumes:
+  moodle_data:
+  mariadb_data:
