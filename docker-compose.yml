@@ -1,6 +1,18 @@
 version: '3.9'
 
 services:
+  service:
+    user: node
+    build:
+      context: ./service
+      target: development
+    volumes:
+      - ./service:/app
+      - service_dist:/app/dist:rw
+    networks:
+      plinq-network:
+        aliases:
+          - plinq
   moodle:
     image: bitnami/moodle:4
     depends_on:
@@ -35,9 +47,12 @@ services:
           - moodle-db
 
 networks:
+  plinq-network:
+    driver: bridge
   moodle-network:
     driver: bridge
 
 volumes:
+  service_dist:
   moodle_data:
   mariadb_data:
