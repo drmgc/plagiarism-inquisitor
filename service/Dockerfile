@@ -47,7 +47,7 @@ COPY --from=production-builder /app/dist /app/dist
 COPY --from=production-builder \
     /app/tsconfig.json \
     /app/nest-cli.json \
-    .
+    ./
 
 ARG port=80
 ENV PORT=${port}
