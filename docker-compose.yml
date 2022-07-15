@@ -6,6 +6,10 @@ services:
     build:
       context: ./service
       target: development
+    depends_on:
+      - redis
+    environment:
+      REDIS_URL: 'redis://redis:6379/1'
     volumes:
       - ./service:/app
       - service_dist:/app/dist:rw
@@ -13,6 +17,12 @@ services:
       plinq-network:
         aliases:
           - plinq
+  redis:
+    image: redis:7-alpine
+    networks:
+      plinq-network:
+        aliases:
+          - redis
   moodle:
     image: bitnami/moodle:4
     depends_on:
@@ -45,6 +55,13 @@ services:
       moodle-network:
         aliases:
           - moodle-db
+  rcli:
+    image: redis:6-alpine
+    command: redis-cli -h redis
+    networks:
+      plinq-network:
+    profiles:
+      - tools
 
 networks:
   plinq-network:
