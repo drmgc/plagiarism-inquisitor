@@ -8,9 +8,11 @@ import { AppService } from './app.service'
 
 import { AssignmentsService } from './assignments.service'
 import { CheckContextsService } from './check-contexts.service'
+import { CheckingService } from './checking.service'
 
 import { AssignmentsController } from './assignments.controller'
 import { CheckContextsController } from './check-contexts.controller'
+import { CheckingController } from './checking.controller'
 
 @Module({
   imports: [
@@ -31,11 +33,13 @@ import { CheckContextsController } from './check-contexts.controller'
     AppController,
     AssignmentsController,
     CheckContextsController,
+    CheckingController,
   ],
   providers: [
     AppService,
     AssignmentsService,
     CheckContextsService,
+    CheckingService,
   ],
 })
 export class AppModule {

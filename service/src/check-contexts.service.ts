@@ -1,5 +1,4 @@
 import Redis from 'ioredis'
-import { v4 as uuidv4 } from 'uuid'
 
 import { Injectable } from '@nestjs/common'
 import { InjectRedis } from '@liaoliaots/nestjs-redis'
